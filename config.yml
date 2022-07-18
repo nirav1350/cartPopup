@@ -1,0 +1,19 @@
+development:
+  password: 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
+  theme_id: "134738968790"
+  store: estore1350.myshopify.com
+  ignore_files:
+    - README.md
+    - .gitignore
+    - config/settings_data.json
+    - assets/bundle.js.map
+    - locales/
+    - "*.png"
+    - "*.jpg"
+    - "*.jpeg"
+    - "*.svg"
+    - "*.gif"
+    - "*.mp4"
+    - "*.JPG"
+    - "*.js.map"
+    - "*.json"

@@ -1,0 +1,215 @@
+{%- if section.settings.video_link != blank and section.settings.video_image != blank -%}
+<div id="product-video">
+  <div class="page-width">
+    <div class="product-video-wrap">
+      <div class="video_image_banner">
+        {%- if section.settings.video_image != blank -%}
+        <img class="video_image" alt="image" src="{{ section.settings.video_image | img_url: '1600x' }}">
+        {%- endif -%}
+        {% if section.settings.video_link != blank %}
+        <div class="js-play-button-wrap">
+          <span class="js-play-button{% if section.settings.video_link contains 'youtube' %} youtube_video{% elsif section.settings.video_link contains 'vimeo' %} vimeo_video{% endif %}" >
+            <!-- <svg class="play" version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94 94" width="94" height="94">
+                <style>
+                    .s0 { fill: #96865d } 
+                    .s1 { fill: #ffffff } 
+                </style>
+                <circle id="Ellipse_96" class="s0" cx="47" cy="47" r="47"/>
+                <path id="Path_2359" class="s1" d="m71.1 47.3l-37.1 22.3v-44.6z"/>
+            </svg> -->
+            <svg class="play" xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81">
+              <g id="Group_39769" data-name="Group 39769" transform="translate(-660 -6239)">
+                <g id="Ellipse_81" data-name="Ellipse 81" transform="translate(660 6239)" fill="none" stroke="#fff" stroke-width="2">
+                  <circle cx="40.5" cy="40.5" r="40.5" stroke="none"/>
+                  <circle cx="40.5" cy="40.5" r="39.5" fill="none"/>
+                </g>
+                <path id="icons8-play" d="M8,8.354V34.549a2.53,2.53,0,0,0,3.887,2.135l20.58-13.1a2.527,2.527,0,0,0,0-4.267L11.887,6.22A2.529,2.529,0,0,0,8,8.354Z" transform="translate(683.741 6258.049)" fill="#fff"/>
+              </g>
+            </svg>
+            
+            <svg class="pause" version="1.1" id="Layer_1" width="94" height="94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 94 94" style="enable-background:new 0 0 94 94;" xml:space="preserve">
+              <style type="text/css">
+                .st1{display:none;fill:#FFFFFF;}
+                .st2{fill:#FFFFFF;}
+              </style>
+              <circle id="Ellipse_96" class="st0" cx="47" cy="47" r="47"/>
+              <path id="Path_2359" class="st1" d="M33.4,26.7v44.6L70.6,49L33.4,26.7z"/>
+              <g>
+                <rect x="53.1" y="23.3" class="st2" width="9.7" height="47.5"/>
+                <rect x="31.1" y="23.3" class="st2" width="9.7" height="47.5"/>
+              </g>
+            </svg>
+          </span>
+        </div>
+        {% if section.settings.video_link contains 'youtube' or section.settings.video_link contains 'vimeo'  %}
+        {% if section.settings.video_link contains "youtube" %}
+        {% assign video_id = section.settings.video_link | split : '/watch?v=' | last %}
+        <iframe id="video" class="js-product-video no-container" src="//www.youtube.com/embed/{{ video_id }}?enablejsapi=1&html5=1&mute=1&rel=0&showinfo=0"  width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+        {% endif %}
+        {% if section.settings.video_link contains "vimeo" %}
+        {% assign video_id = section.settings.video_link | split : 'vimeo.com/' | last %}
+        <iframe class="js-product-video no-container" src="//player.vimeo.com/video/{{ video_id }}?byline=0&portrait=0&badge=0" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+        {% endif %}
+        {% else %}
+        <video class="js-product-video"  loop muted>
+          <source type="video/mp4" src="{{ section.settings.video_link }}">
+        </video>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Homepage video section",
+    "class": "section video-part",
+    "settings": [
+    {
+      "type":"text",
+      "id": "video_link",
+      "label": "Add video url"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_image",
+      "label": "Video image"
+    }    
+    ],
+    "presets": [
+    {
+      "name": "Custom Video Section"
+    }
+   ]
+  }
+{% endschema %}
+<style>
+  .video-part {
+    padding-top: 5rem;
+  }
+  .video_image_banner svg.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+    cursor: pointer
+  }
+
+  .video_image_banner .video-push,.video_image_banner .js-play-button.active .icon-play {
+    display: none
+  }
+
+  .video_image_banner .js-play-button.active .video-push {
+    display: block
+  }
+  
+  .video_image_banner .js-play-button.active .play{
+  	display: none
+  }
+  .video_image_banner .js-play-button:not(.active) .pause{
+  	display: none
+  }
+  .video_image_banner .js-play-button.youtube_video .pause{
+    display: none;
+  }
+  .video_image_banner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex
+  }
+  .video_image_banner:before {
+    content: "";
+    display: block;
+    padding-bottom: 58.9%;
+  }
+  img.video_image {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    object-fit: cover;
+}
+  iframe.js-product-video {
+    display: none
+  }
+
+  iframe.js-product-video.active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex
+  }
+
+  .js-play-button-wrap {
+    position: absolute;
+    top: auto;
+    left: auto;
+    right: 47px;
+    bottom: 51px;
+    transform: translate(0);
+    z-index: 1;
+    max-width: 400px;
+    text-align: center;
+  }
+  .video_image_banner:not(:hover) .js-play-button-wrap.active {
+    display: none;
+  }
+  @media screen and (max-width: 767px){
+    .video_image_banner .js-play-button-wrap.active {
+      display: none;
+    }
+  }
+  .js-play-button-wrap.active .video_heading{
+    display: none;
+  }
+  .js-play-button{
+    cursor: pointer;
+  }
+
+  .video_playing {
+    background: #000
+  }
+
+  .video_playing img {
+    opacity: 0
+  }
+  
+  .js-play-button-wrap.active ~ .js-product-video {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .js-play-button-wrap {
+    right: auto;
+    bottom: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .js-play-button-wrap svg {
+    width: 41px;
+    height: 41px;
+  }
+  .video_image_banner:before{
+    padding-bottom: 102%;
+  }
+  
+  .video-part {
+      padding-top: 0rem;
+  }
+}
+  
+</style>

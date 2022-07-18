@@ -1,0 +1,60 @@
+.contact img {max-width: 100%;}
+.contact .form__message {align-items: flex-start;}
+.contact .icon-success {margin-top: 0.2rem;}
+.contact .field {margin-bottom: 1.5rem;}
+@media screen and (min-width: 750px) {
+  .contact .field {margin-bottom: 2rem;}
+}
+.contact__button {margin-top: 3rem;}
+@media screen and (min-width: 750px) {
+  .contact__button {margin-top: 4rem;}
+}
+@media screen and (min-width: 750px) {
+  .contact__fields { display: grid; grid-template-columns: repeat(2, 1fr); grid-column-gap: 2rem; }
+}
+.grecaptcha-badge { visibility: hidden; }
+
+
+
+/* Contact page css start */
+.contact .title{ line-height: 82px; padding-bottom: 30px; border-bottom: 1px solid rgba(40, 52, 46, 0.5); margin: 0 0 40px 0;}
+.contact .contact_left_div{ width: 475px; display: inline-block;}
+.contact .contact_left_div .form-wrap .field{ flex-direction: column; margin-bottom: 22px;}
+.contact .contact_left_div .form-wrap .field .field__label{ position: relative; top: 0; left: 0; width: 100%; margin-bottom: 7px; text-transform: lowercase;}
+.contact .contact_left_div .form-wrap .field .field__input{ padding: 14px 27px; font-size: 20px; line-height: 27px;}
+.contact .contact_left_div .form-wrap .field .text-area{ height: 158px;}
+.contact .contact__button{ margin-top: -4px;}
+.contact .contact__button button{ padding: 0; min-width: 159px; height: 58px; text-transform: lowercase;line-height: calc(var(--font-heading-scale) * 2.4rem);}
+
+.contact .form_right_div{ width: calc(100% - 480px); display: inline-block; padding: 0 102px 0 80px; vertical-align: top;}
+.contact .form_right_div .form_content p{ font-size: 20px; line-height: calc(var(--font-heading-scale) * 2.6rem); margin: 22px 0 25px 0;}
+.contact .form_right_div .form_content .email-id-main{display: flex;align-items: center; width: 100%; margin-bottom: 25px;}
+.contact .form_right_div .form_content .email-id-main .email-title{ line-height: calc(var(--font-heading-scale) * 2.6rem); margin-right: 5px;}
+.contact .form_right_div .form_content .email-id-main p{ margin: 0;}
+.contact .form_right_div .form_content .email-id-main a{ text-decoration: none;line-height: calc(var(--font-heading-scale) * 2.6rem); font-size: 20px; color: var(--color-foreground);}
+
+.contact .social_main_section p{ line-height: calc(var(--font-heading-scale) * 2.6rem); margin: 0 0 25px 0;}
+.contact .social_main_section .contact_social_icon{ list-style: none; margin: 0; padding: 0;}
+.contact .social_main_section .contact_social_icon li a{ padding: 0; transition: all 0.3s linear;}
+.contact .social_main_section .contact_social_icon li a .icon{ height: 24px;width: 24px; transition: all 0.3s linear;}
+.contact .social_main_section .contact_social_icon li{ display: inline-block; margin-right: 28px;}
+
+
+/* Responsive start */
+@media screen and (max-width: 1024px){
+  .contact .form_right_div{ padding: 0 0px 0 80px;}
+}
+@media screen and (max-width: 991px){
+  .contact .title{ line-height: 38px; padding-bottom: 20px; margin: 0 0 20px;}
+  .contact .contact_left_div{width: 100%; margin-bottom: 29px;}
+  .contact .form_right_div{ width: 100%; padding: 0;}
+  .contact .form_right_div .form_content p{ font-size: 16px; margin-bottom: 20px;}  
+  .contact .form_right_div .form_content .email-id-main{ margin-bottom: 20px;}
+  .contact .form_right_div .form_content .email-id-main .email-title{ font-size: calc(var(--font-heading-scale) * 1.6rem);}
+  .contact .form_right_div .form_content .email-id-main a{ font-size: 16px;}
+  .contact .contact__button{margin-top: -2px;}
+  .contact .social_main_section p{ font-size: calc(var(--font-heading-scale) * 1.6rem); margin: 0 0 20px;}
+}
+
+
+

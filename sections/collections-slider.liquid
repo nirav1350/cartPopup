@@ -1,0 +1,179 @@
+{% if section.blocks.size > 0 %}
+  <div class="page-width">
+    <div class="collection_shop_main">
+      {% if section.settings.title != blank %}
+        <h2 class="h3 section-title-line-height">{{ section.settings.title }}</h2>
+      {% endif %}
+      <div class="collection-slider-nav cust_coll_for_slider">
+        {% for block in section.blocks %}
+        {% assign collection = collections[block.settings.collection] %}
+          <div class="slide-nav {% if forloop.index0 == 0 %}nav-active{% endif %}" nav-index="{{forloop.index0}}">
+            <span>{% if block.settings.nav_txt != blank %}{{ block.settings.nav_txt }}{% else %}{{collection.title}}{% endif %}</span>
+          </div>
+        {% endfor %}
+      </div>
+      <ul {% if section.settings.enable_slider %} class="collection-slider-for" data-slick='{"dots": {{ section.settings.carousel_dots }}, "arrows": {{ section.settings.carousel_arrows }}, "infinite": false}' {%- else -%} class="collection-slider" {% endif %}>
+        {% for block in section.blocks %}
+        {% assign collection = collections[block.settings.collection] %}
+          <li class="inner">
+            {%- comment -%}<img src="{{block.settings.bg_image | img_url:'master'}}" />{%- endcomment -%}
+            {% if block.settings.slide_content != blank or block.settings.btn_txt != blank %}
+              <div class="collection-slider-details">                
+                <h3 class="h2 text-stroke collection-title">{% if block.settings.slide_title != blank %}{{block.settings.slide_title}}{% else %}{{collection.title}}{% endif %}</h3>
+                {% if block.settings.slide_content != blank or block.settings.btn_txt != blank %}
+                  <div class="collection-content">
+                    {% if block.settings.slide_content != blank %}
+                      <div class="collection-desc">{{block.settings.slide_content}}</div>
+                    {% endif %}
+                    {% if block.settings.btn_txt != blank %}
+                      <a class="button button--secondary unlock-btn" href="{% if block.settings.btn_url != blank %}{{block.settings.btn_url}}{% else %}#{% endif %}">{{block.settings.btn_txt}}</a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+            {% if block.settings.bg_image != blank %}
+              <div class="collection-slider-right-img">
+                <img class="desktop-show" srcset="{% if block.settings.bg_image.width >= 54 %}{{ block.settings.bg_image | image_url: width: 54 }} 54w,{% endif %}
+                {% if block.settings.bg_image.width >= 74 %}{{ block.settings.bg_image | image_url: width: 74 }} 74w,{% endif %}
+                {% if block.settings.bg_image.width >= 104 %}{{ block.settings.bg_image | image_url: width: 104 }} 104w,{% endif %}
+                {% if block.settings.bg_image.width >= 162 %}{{ block.settings.bg_image | image_url: width: 162 }} 162w,{% endif %}
+                {% if block.settings.bg_image.width >= 208 %}{{ block.settings.bg_image | image_url: width: 208 }} 208w,{% endif %}
+                {% if block.settings.bg_image.width >= 324 %}{{ block.settings.bg_image | image_url: width: 324 }} 324w,{% endif %}
+                {% if block.settings.bg_image.width >= 416 %}{{ block.settings.bg_image | image_url: width: 416 }} 416w,{% endif %},
+                {% if block.settings.bg_image.width >= 550 %}{{ block.settings.bg_image | image_url: width: 550 }} 550w,{%- endif -%},
+                {% if block.settings.bg_image.width >= 750 %}{{ block.settings.bg_image | image_url: width: 750 }} 750w,{%- endif -%},
+                {% if block.settings.bg_image.width >= 1100 %}{{ block.settings.bg_image | image_url: width: 1100 }} 1100w,{%- endif -%},
+                {% if block.settings.bg_image.width >= 1500 %}{{ block.settings.bg_image | image_url: width: 1500 }} 1500w,{%- endif -%},
+                {{ block.settings.bg_image | image_url }} {{ block.settings.bg_image.width }}w" src="{{block.settings.bg_image| img_url:'origial'}}"
+                src="{{ block.settings.bg_image | image_url: width: 416 }}"
+                loading="lazy"
+                />
+                <img class="mobile-show" srcset="{% if block.settings.mobile_bg_image.width >= 54 %}{{ block.settings.mobile_bg_image | image_url: width: 54 }} 54w,{% endif %}
+                {% if block.settings.mobile_bg_image.width >= 74 %}{{ block.settings.mobile_bg_image | image_url: width: 74 }} 74w,{% endif %}
+                {% if block.settings.mobile_bg_image.width >= 104 %}{{ block.settings.mobile_bg_image | image_url: width: 104 }} 104w,{% endif %}
+                {% if block.settings.mobile_bg_image.width >= 162 %}{{ block.settings.mobile_bg_image | image_url: width: 162 }} 162w,{% endif %}
+                {% if block.settings.mobile_bg_image.width >= 208 %}{{ block.settings.mobile_bg_image | image_url: width: 208 }} 208w,{% endif %}
+                {% if block.settings.mobile_bg_image.width >= 324 %}{{ block.settings.mobile_bg_image | image_url: width: 324 }} 324w,{% endif %}
+                {% if block.settings.mobile_bg_image.width >= 416 %}{{ block.settings.mobile_bg_image | image_url: width: 416 }} 416w,{% endif %},
+                {% if block.settings.mobile_bg_image.width >= 550 %}{{ block.settings.mobile_bg_image | image_url: width: 550 }} 550w,{%- endif -%},
+                {% if block.settings.mobile_bg_image.width >= 750 %}{{ block.settings.mobile_bg_image | image_url: width: 750 }} 750w,{%- endif -%},
+                {% if block.settings.mobile_bg_image.width >= 1100 %}{{ block.settings.mobile_bg_image | image_url: width: 1100 }} 1100w,{%- endif -%},
+                {% if block.settings.mobile_bg_image.width >= 1500 %}{{ block.settings.mobile_bg_image | image_url: width: 1500 }} 1500w,{%- endif -%},
+                {{ block.settings.mobile_bg_image | image_url }} {{ block.settings.mobile_bg_image.width }}w" src="{{block.settings.mobile_bg_image| img_url:'origial'}}"
+                src="{{ block.settings.mobile_bg_image | image_url: width: 416 }}"
+                loading="lazy"
+                />
+              </div>
+            {% endif %}       
+          </li>
+        {% endfor %}
+        </ul>
+      
+      <div class="mobile-button">
+        <a class="button button--secondary unlock-btn" href="{{ section.settings.mobile_button_link }}" tabindex="0">{{ section.settings.mobile_button_text }}</a>
+      </div>  
+
+    </div>
+  </div>
+{% endif %}
+
+  
+{% schema %}
+{
+    "name": "Collection Slider",
+    "class": "section collection_shop_section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Slider Title",
+        "default": "Shop by collection"
+      },
+      {
+        "type": "text",
+        "id": "mobile_button_text",
+        "label": "Mobile Button Text",
+        "default": "unlock the complete curation"
+      },
+      {
+        "type": "url",
+        "id": "mobile_button_link",
+        "label": "Mobile Button Link"
+        },
+      {
+        "type": "checkbox",
+        "id": "enable_slider",
+        "label": "Enable Slider",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "carousel_dots",
+        "label": "Enable dots",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "carousel_arrows",
+        "label": "Enable arrows",
+        "default": true
+      }
+    ],
+    "blocks":[
+      {
+        "type": "collection",
+        "name": "collection-slider",
+        "settings":[
+          {
+            "type": "text",
+            "id": "nav_txt",
+            "label": "Nav Name"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Select Collection"
+          },
+          {
+            "type": "image_picker",
+            "id": "bg_image",
+            "label": "Background Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile_bg_image",
+            "label": "Mobile Background Image"
+          },
+          {
+            "type": "text",
+            "id": "slide_title",
+            "label": "Slider Title",
+            "default": "Shop by collection"
+          },
+          {
+            "type": "richtext",
+            "id": "slide_content",
+            "label": "Slide Content"
+          },
+          {
+            "type": "text",
+            "id": "btn_txt",
+            "label": "Btn Name",
+            "default": "unlock the complete curation"
+          },
+          {
+            "type": "url",
+            "id": "btn_url",
+            "label": "Btn Url"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "collections slider"
+      }
+    ]
+  }
+{% endschema %}

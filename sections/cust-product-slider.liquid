@@ -1,0 +1,368 @@
+{% if section.blocks.size > 0 %}
+<div class="page-width">
+<div class="collection_shop_main product-details-container-slider">
+{% if section.settings.title != blank %}
+    <h2 class="h40 slider-heading section-title-line-height">{{ section.settings.title }}</h2>
+{% endif %}
+<div class="collection-slider-nav cust_coll_for_slider cust_product_slider">
+    {% assign count = 0 %}
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'text' %}
+    {% if block.settings.bg_image_1 != blank or block.settings.bg_image_2 != blank or block.settings.bg_image_3 != blank %}
+    {% assign count = count %}
+        <div class="slide-nav cust-slide-navigation {% if  count == 0 %}nav-active{% endif %}" nav-index="{{count}}" data-count="{{ count }}">
+            <span>{{ block.settings.nav_txt }}</span>
+        </div>
+    {% endif %}
+    {% when 'block-2' %}
+    {% if block.settings.video_url != blank %}
+        {% assign count = count | plus: 1 %}
+        <div class="slide-nav cust-slide-navigation {% if  count == 0 %}nav-active{% endif %}" nav-index="{{ count }}" data-count="{{ count }}">
+            <span>{{ block.settings.nav_txt }}</span>   
+        </div>
+    {% endif %}
+    {% when 'block-3' %}
+    {% if block.settings.bg_image_1 != blank %}
+        {% assign count = count | plus: 1 %}
+        <div class="slide-nav cust-slide-navigation {% if  count == 0 %}nav-active{% endif %}" nav-index="{{ count }}" data-count="{{ count }}">
+            <span>{{ block.settings.nav_txt }}</span>
+        </div>
+    {% endif %}
+    {% when 'block-4' %}
+    {% if block.settings.comparison_heading != blank or block.settings.comparison_text != blank %}
+        {% assign count = count | plus: 1 %}
+        <div class="slide-nav cust-slide-navigation {% if  count == 0 %}nav-active{% endif %}" nav-index="{{ count }}" data-count="{{ count }}">
+            <span>{{ block.settings.nav_txt }}</span>
+        </div>
+    {% endif %}
+    {% when 'block-5' %}
+    {% if block.settings.care_heading != blank or block.settings.care_text != blank %}
+        {% assign count = count | plus: 1 %}
+        <div class="slide-nav cust-slide-navigation {% if  count == 0 %}nav-active{% endif %}" nav-index="{{ count }}" data-count="{{ count }}">
+            <span>{{ block.settings.nav_txt }}</span>
+        </div>
+    {% endif %}
+    {% endcase %}
+    {% endfor %}
+</div>
+<div {% if section.settings.enable_slider %} class="collection-slider-for product-slider-for" data-slick='{"dots": {{ section.settings.carousel_dots }}, "arrows": {{ section.settings.carousel_arrows }}, "infinite": false}' {%- else -%} class="collection-slider" {% endif %}>
+{% for block in section.blocks %}
+    {% case block.type %}
+        {% when 'text' %}
+            {% if block.settings.bg_image_1 != blank or block.settings.bg_image_2 != blank or block.settings.bg_image_3 != blank %}
+                <div class="cstm_img_main_sec">
+                <div class="cstm_img_inner_sec">
+                    <div class="h3 text-stroke product-description-heading">
+                        {%- if block.settings.slide_title -%}
+                            {{ block.settings.slide_title }}
+                        {%- endif -%}
+                    </div>
+                    <div class="cstm_img_upper_sec">
+                        {% if block.settings.bg_image_1 != blank %}
+                        <div class="collection-slider-right-img">
+                            <img srcset="{% if block.settings.bg_image_1.width >= 54 %}{{ block.settings.bg_image_1 | image_url: width: 54 }} 54w,{% endif %}
+                                {% if block.settings.bg_image_1.width >= 74 %}{{ block.settings.bg_image_1 | image_url: width: 74 }} 74w,{% endif %}
+                                {% if block.settings.bg_image_1.width >= 104 %}{{ block.settings.bg_image_1 | image_url: width: 104 }} 104w,{% endif %}
+                                {% if block.settings.bg_image_1.width >= 162 %}{{ block.settings.bg_image_1 | image_url: width: 162 }} 162w,{% endif %}
+                                {% if block.settings.bg_image_1.width >= 208 %}{{ block.settings.bg_image_1 | image_url: width: 208 }} 208w,{% endif %}
+                                {% if block.settings.bg_image_1.width >= 324 %}{{ block.settings.bg_image_1 | image_url: width: 324 }} 324w,{% endif %}
+                                {% if block.settings.bg_image_1.width >= 416 %}{{ block.settings.bg_image_1 | image_url: width: 416 }} 416w,{% endif %},
+                                {% if block.settings.bg_image_1.width >= 550 %}{{ block.settings.bg_image_1 | image_url: width: 550 }} 550w,{%- endif -%},
+                                {% if block.settings.bg_image_1.width >= 750 %}{{ block.settings.bg_image_1 | image_url: width: 750 }} 750w,{%- endif -%},
+                                {% if block.settings.bg_image_1.width >= 1100 %}{{ block.settings.bg_image_1 | image_url: width: 1100 }} 1100w,{%- endif -%},
+                                {% if block.settings.bg_image_1.width >= 1500 %}{{ block.settings.bg_image_1 | image_url: width: 1500 }} 1500w,{%- endif -%},
+                                {{ block.settings.bg_image_1 | image_url }} {{ block.settings.bg_image_1.width }}w" src="{{block.settings.bg_image_1| img_url:'origial'}}"
+                                src="{{ block.settings.bg_image_1 | image_url: width: 416 }}"
+                                loading="lazy"
+                                />
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="cstm_img_lower_sec">
+                    {% if block.settings.bg_image_2 != blank %}
+                        <div class="ctm-small-img">
+                            <div class="collection-slider-right-img">
+                                <img srcset="{% if block.settings.bg_image_2.width >= 54 %}{{ block.settings.bg_image_2 | image_url: width: 54 }} 54w,{% endif %}
+                                    {% if block.settings.bg_image_2.width >= 74 %}{{ block.settings.bg_image_2 | image_url: width: 74 }} 74w,{% endif %}
+                                    {% if block.settings.bg_image_2.width >= 104 %}{{ block.settings.bg_image_2 | image_url: width: 104 }} 104w,{% endif %}
+                                    {% if block.settings.bg_image_2.width >= 162 %}{{ block.settings.bg_image_2 | image_url: width: 162 }} 162w,{% endif %}
+                                    {% if block.settings.bg_image_2.width >= 208 %}{{ block.settings.bg_image_2 | image_url: width: 208 }} 208w,{% endif %}
+                                    {% if block.settings.bg_image_2.width >= 324 %}{{ block.settings.bg_image_2 | image_url: width: 324 }} 324w,{% endif %}
+                                    {% if block.settings.bg_image_2.width >= 416 %}{{ block.settings.bg_image_2 | image_url: width: 416 }} 416w,{% endif %},
+                                    {% if block.settings.bg_image_2.width >= 550 %}{{ block.settings.bg_image_2 | image_url: width: 550 }} 550w,{%- endif -%},
+                                    {% if block.settings.bg_image_2.width >= 750 %}{{ block.settings.bg_image_2 | image_url: width: 750 }} 750w,{%- endif -%},
+                                    {% if block.settings.bg_image_2.width >= 1100 %}{{ block.settings.bg_image_2 | image_url: width: 1100 }} 1100w,{%- endif -%},
+                                    {% if block.settings.bg_image_2.width >= 1500 %}{{ block.settings.bg_image_2 | image_url: width: 1500 }} 1500w,{%- endif -%},
+                                    {{ block.settings.bg_image_2 | image_url }} {{ block.settings.bg_image_2.width }}w" src="{{block.settings.bg_image_2| img_url:'origial'}}"
+                                    src="{{ block.settings.bg_image_2 | image_url: width: 416 }}"
+                                    loading="lazy"
+                                    />
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if block.settings.bg_image_3 != blank %}
+                        <div class="ctm-small-img">  
+                            <div class="collection-slider-right-img">
+                                <img srcset="{% if block.settings.bg_image_3.width >= 54 %}{{ block.settings.bg_image_3 | image_url: width: 54 }} 54w,{% endif %}
+                                    {% if block.settings.bg_image_3.width >= 74 %}{{ block.settings.bg_image_3 | image_url: width: 74 }} 74w,{% endif %}
+                                    {% if block.settings.bg_image_3.width >= 104 %}{{ block.settings.bg_image_3 | image_url: width: 104 }} 104w,{% endif %}
+                                    {% if block.settings.bg_image_3.width >= 162 %}{{ block.settings.bg_image_3 | image_url: width: 162 }} 162w,{% endif %}
+                                    {% if block.settings.bg_image_3.width >= 208 %}{{ block.settings.bg_image_3 | image_url: width: 208 }} 208w,{% endif %}
+                                    {% if block.settings.bg_image_3.width >= 324 %}{{ block.settings.bg_image_3 | image_url: width: 324 }} 324w,{% endif %}
+                                    {% if block.settings.bg_image_3.width >= 416 %}{{ block.settings.bg_image_3 | image_url: width: 416 }} 416w,{% endif %},
+                                    {% if block.settings.bg_image_3.width >= 550 %}{{ block.settings.bg_image_3 | image_url: width: 550 }} 550w,{%- endif -%},
+                                    {% if block.settings.bg_image_3.width >= 750 %}{{ block.settings.bg_image_3 | image_url: width: 750 }} 750w,{%- endif -%},
+                                    {% if block.settings.bg_image_3.width >= 1100 %}{{ block.settings.bg_image_3 | image_url: width: 1100 }} 1100w,{%- endif -%},
+                                    {% if block.settings.bg_image_3.width >= 1500 %}{{ block.settings.bg_image_3 | image_url: width: 1500 }} 1500w,{%- endif -%},
+                                    {{ block.settings.bg_image_3 | image_url }} {{ block.settings.bg_image_3.width }}w" src="{{block.settings.bg_image_3| img_url:'origial'}}"
+                                    src="{{ block.settings.bg_image_3 | image_url: width: 416 }}"
+                                    loading="lazy"
+                                    />
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+            {% endif %}
+        {% when 'block-2' %}
+            {% if block.settings.product_video_heading != blank or block.settings.video_url != blank %}
+                <div class="product-video-section">
+                {% if block.settings.product_video_heading != blank %}
+                    <h1 class="h3 text-stroke product-description-heading">{{block.settings.product_video_heading}}</h1>
+                {% endif %}
+                {% if block.settings.video_url != blank %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="1086" height="611" src="https://www.youtube.com/embed/{{block.settings.video_url}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                </iframe>
+                </div>
+                {% endif %}
+                </div>
+            {% endif %}
+        {% when 'block-3' %}
+            {% if block.settings.dimention_heading != blank or  block.settings.bg_image_1 != blank %}
+                <div class="cstm_img_upper_sec">
+                {% if block.settings.dimention_heading != blank %}
+                    <h2 class="h3 text-stroke product-description-heading">{{block.settings.dimention_heading}}</h2>
+                {% endif %}
+                {% if block.settings.bg_image_1 != blank %}
+                    <div class="collection-slider-right-img">
+                    <img srcset="{% if block.settings.bg_image_1.width >= 54 %}{{ block.settings.bg_image_1 | image_url: width: 54 }} 54w,{% endif %}
+                        {% if block.settings.bg_image_1.width >= 74 %}{{ block.settings.bg_image_1 | image_url: width: 74 }} 74w,{% endif %}
+                        {% if block.settings.bg_image_1.width >= 104 %}{{ block.settings.bg_image_1 | image_url: width: 104 }} 104w,{% endif %}
+                        {% if block.settings.bg_image_1.width >= 162 %}{{ block.settings.bg_image_1 | image_url: width: 162 }} 162w,{% endif %}
+                        {% if block.settings.bg_image_1.width >= 208 %}{{ block.settings.bg_image_1 | image_url: width: 208 }} 208w,{% endif %}
+                        {% if block.settings.bg_image_1.width >= 324 %}{{ block.settings.bg_image_1 | image_url: width: 324 }} 324w,{% endif %}
+                        {% if block.settings.bg_image_1.width >= 416 %}{{ block.settings.bg_image_1 | image_url: width: 416 }} 416w,{% endif %},
+                        {% if block.settings.bg_image_1.width >= 550 %}{{ block.settings.bg_image_1 | image_url: width: 550 }} 550w,{%- endif -%},
+                        {% if block.settings.bg_image_1.width >= 750 %}{{ block.settings.bg_image_1 | image_url: width: 750 }} 750w,{%- endif -%},
+                        {% if block.settings.bg_image_1.width >= 1100 %}{{ block.settings.bg_image_1 | image_url: width: 1100 }} 1100w,{%- endif -%},
+                        {% if block.settings.bg_image_1.width >= 1500 %}{{ block.settings.bg_image_1 | image_url: width: 1500 }} 1500w,{%- endif -%},
+                        {{ block.settings.bg_image_1 | image_url }} {{ block.settings.bg_image_1.width }}w" src="{{block.settings.bg_image_1| img_url:'origial'}}"
+                        src="{{ block.settings.bg_image_1 | image_url: width: 416 }}"
+                        loading="lazy"
+                        />
+                </div>
+                {% endif %}
+                </div>
+            {% endif %}
+        {% when 'block-4' %}
+            {% if block.settings.comparison_heading != blank or block.settings.comparison_text != blank %}
+                <div class="cstm_usp">
+                    {% if block.settings.comparison_heading != blank %}
+                    <h2 class="h3 text-stroke product-description-heading">{{block.settings.comparison_heading}}</h2>
+                    {% endif %}
+                {% if block.settings.comparison_text != blank %}
+                    <p>{{block.settings.comparison_text}}</p>
+                {% endif %}
+                </div>
+            {% endif %}
+        {% when 'block-5' %}
+            {% if block.settings.care_heading != blank or block.settings.care_text != blank %}
+                <div class="cstm_care">
+                {% if block.settings.care_heading != blank %}
+                <h2 class="h3 text-stroke product-description-heading">{{block.settings.care_heading}}</h2>
+                {% endif %}
+                {% if block.settings.care_text != blank %}
+                {{block.settings.care_text}}
+                {% endif %}
+                </div>
+            {% endif %}
+    {% endcase %}
+{% endfor %}
+</div>
+</div>
+</div>
+{% endif %}
+{% schema %}
+{
+"name": "cust product tab slider",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Slider Title",
+"default": "Shop by collection"
+},
+{
+"type": "checkbox",
+"id": "enable_slider",
+"label": "Enable Slider",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "carousel_dots",
+"label": "Enable dots",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "carousel_arrows",
+"label": "Enable arrows",
+"default": true
+}
+],
+"max_blocks": 5,
+"blocks":[
+{
+"type": "text",
+"name": "product-slider",
+"settings":[
+{
+"type": "text",
+"id": "nav_txt",
+"label": "Nav Name"
+},
+{
+"type": "image_picker",
+"id": "bg_image_1",
+"label": "Background Image"
+},
+{
+"type": "image_picker",
+"id": "bg_image_2",
+"label": "Background Image"
+},
+{
+"type": "image_picker",
+"id": "bg_image_3",
+"label": "Background Image"
+},
+{
+"type": "text",
+"id": "slide_title",
+"label": "Slider Title",
+"default": "Shop by collection"
+},
+{
+"type": "richtext",
+"id": "slide_content",
+"label": "Slide Content"
+},
+{
+"type": "text",
+"id": "btn_txt",
+"label": "Btn Name",
+"default": "unlock the complete curation"
+},
+{
+"type": "url",
+"id": "btn_url",
+"label": "label"
+}
+]
+},
+{
+"type": "block-2",
+"name": " product video",
+"settings": [
+{
+"type": "text",
+"id": "nav_txt",
+"label": "Nav Name"
+},
+{
+"type": "text",
+"id": "product_video_heading",
+"label": "Title"
+},
+{
+"type": "url",
+"id": "video_url",
+"label": "YouTube video URL"
+} 
+]
+},
+{
+"type": "block-3",
+"name": " Dimention + Size Guid",
+"settings": [
+{
+"type": "text",
+"id": "nav_txt",
+"label": "Nav Name"
+},
+{
+"type": "text",
+"id": "dimention_heading",
+"label": "Title"
+},
+{
+"type": "image_picker",
+"id": "bg_image_1",
+"label": "Background Image"
+}
+]
+},
+{
+"type": "block-4",
+"name": " Ups and Comparison",
+"settings": [
+{
+"type": "text",
+"id": "nav_txt",
+"label": "Nav Name"
+},
+{
+"type": "text",
+"id": "comparison_heading",
+"label": "Title"
+},
+{
+"type": "richtext",
+"id": "comparison_text",
+"label": "Description"
+}
+]
+},
+{
+"type": "block-5",
+"name": "Disclaimer and Care",
+"settings": [
+{
+"type": "text",
+"id": "nav_txt",
+"label": "Nav Name"
+},
+{
+"type": "text",
+"id": "care_heading",
+"label": "Title"
+},
+{
+"type": "richtext",
+"id": "care_text",
+"label": "Discription"
+}
+]
+}
+],
+"presets": [
+{
+"name": "cust product tab slider"
+}
+]
+}
+{% endschema %}

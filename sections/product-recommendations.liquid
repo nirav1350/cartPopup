@@ -1,0 +1,309 @@
+<link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'section-product-recommendations.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'component-card.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-price.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient product-details-bottom-slider">
+  <product-recommendations class="product-recommendations section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      <div class="product-recommendations__heading-main">
+        <h2 class="product-recommendations__heading h3">{{ section.settings.heading | escape }}</h2>
+      </div>
+      <ul class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down {% if section.settings.enable_slider %}product_recommandation_slider{% endif %}" role="list" {% if section.settings.enable_slider %}id="coll_bottom_img_slider123333"{% endif %}> 
+        {% for recommendation in recommendations.products %}
+          <li class="grid__item">
+            {% render 'card-product',
+            card_product: recommendation,
+            media_aspect_ratio: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            show_vendor: section.settings.show_vendor,
+            show_rating: section.settings.show_rating
+            %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </product-recommendations>
+</div>  
+<!-- jQuery CDN -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!-- slick Carousel CDN -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
+<script>
+theme_custom.recommandationSlider = function(){
+  $('#coll_bottom_img_slider123333').slick({
+    infinite: false,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    arrows: true,
+    dots: false,
+    prevArrow: "<div class='left-arrow'><svg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='32' height='21.333' x='0px' y='0px' viewBox='0 0 32 21.3' style='enable-background:new 0 0 32 21.3;' xml:space='preserve'><style type='text/css'>.st0{fill:#303C42;}.st1{fill:url(#Path_9_00000170251077666054491500000011571302857783398842_);}</style> <g id='icons8-arrow' transform='translate(0 -4)'><path id='Path_8' class='st0' d='M0.2,15.2l10,10c0.3,0.3,0.7,0.2,0.9,0c0.2-0.3,0.2-0.7,0-0.9l-8.9-8.9h29.1 c0.4,0,0.7-0.3,0.6-0.7c0-0.3-0.3-0.6-0.6-0.6H2.3l8.9-8.9c0.3-0.3,0.3-0.7,0-0.9c-0.3-0.3-0.7-0.3-0.9,0c0,0,0,0,0,0l-10,10 C0,14.5,0,14.9,0.2,15.2C0.2,15.2,0.2,15.2,0.2,15.2z'/><linearGradient id='Path_9_00000153706077044497094760000015617416993953407382_' gradientUnits='userSpaceOnUse' x1='-135.5041' y1='143.1656' x2='-134.6791' y2='142.5886' gradientTransform='matrix(-31.9723 0 0 21.334 -4304.1289 -3031.4148)'><stop  offset='0' style='stop-color:#FFFFFF;stop-opacity:0.2'/>  <stop  offset='1' style='stop-color:#FFFFFF;stop-opacity:0'/></linearGradient><path id='Path_9' style='fill:url(#Path_9_00000153706077044497094760000015617416993953407382_);' d='M0.2,15.2l10,10 c0.3,0.3,0.7,0.2,0.9,0c0.2-0.3,0.2-0.7,0-0.9l-8.9-8.9h29.1c0.4,0,0.7-0.3,0.6-0.7c0-0.3-0.3-0.6-0.6-0.6H2.3l8.9-8.9 c0.3-0.3,0.3-0.7,0-0.9c-0.3-0.3-0.7-0.3-0.9,0c0,0,0,0,0,0l-10,10C0,14.5,0,14.9,0.2,15.2C0.2,15.2,0.2,15.2,0.2,15.2z'/></g></svg></div>",
+    nextArrow: "<div class='right-arrow'><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='32' height='21.333' viewBox='0 0 32 21.333'> <defs> <linearGradient id='linear-gradient' x1='0.117' y1='0.116' x2='0.942' y2='0.693' gradientUnits='objectBoundingBox'> <stop offset='0' stop-color='#fff' stop-opacity='0.2'/> <stop offset='1' stop-color='#fff' stop-opacity='0'/> </linearGradient> </defs> <g id='icons8-arrow' transform='translate(0 -4)'> <path id='Path_8' data-name='Path 8' d='M31.8,14.2l-10-10a.667.667,0,0,0-.943.943L29.724,14H.667a.667.667,0,0,0,0,1.333H29.724L20.862,24.2a.667.667,0,1,0,.943.943l10-10A.666.666,0,0,0,31.8,14.2Z' fill='#303c42'/> <path id='Path_9' data-name='Path 9' d='M31.8,14.2l-10-10a.667.667,0,0,0-.943.943L29.724,14H.667a.667.667,0,0,0,0,1.333H29.724L20.862,24.2a.667.667,0,1,0,.943.943l10-10A.666.666,0,0,0,31.8,14.2Z' fill='url(#linear-gradient)'/> </g> </svg></div>",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 1,
+          dots: false,
+          slidesToScroll: 1,
+          variableWidth: false
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          dots: false,
+          slidesToScroll: 1,
+          variableWidth: false
+        }
+      }
+    ]
+  });
+  }
+</script>
+{% javascript %}
+  class ProductRecommendations extends HTMLElement {
+    constructor() {
+      super();
+
+      const handleIntersection = (entries, observer) => {
+        if (!entries[0].isIntersecting) return;
+        observer.unobserve(this);
+
+        fetch(this.dataset.url)
+          .then(response => response.text())
+          .then(text => {
+            const html = document.createElement('div');
+            html.innerHTML = text;
+            const recommendations = html.querySelector('product-recommendations');
+
+            if (recommendations && recommendations.innerHTML.trim().length) {
+              this.innerHTML = recommendations.innerHTML;
+            }
+
+            if (html.querySelector('.grid__item')) {
+              this.classList.add('product-recommendations--loaded');
+            }
+
+            theme_custom.recommandationSlider();
+          })
+          .catch(e => {
+            console.error(e);
+          });
+      }
+
+      new IntersectionObserver(handleIntersection.bind(this), {rootMargin: '0px 0px 200px 0px'}).observe(this);
+    }
+  }
+
+  customElements.define('product-recommendations', ProductRecommendations);
+{% endjavascript %}
+{% schema %}
+{
+  "name": "t:sections.product-recommendations.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+  {
+    "type": "header",
+    "content": "Slider"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_slider",
+    "label": "Enable Slider",
+    "default": true
+  },
+    {
+      "type": "paragraph",
+      "content": "t:sections.product-recommendations.settings.paragraph__1.content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "You may also like",
+      "label": "t:sections.product-recommendations.settings.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.product-recommendations.settings.products_to_show.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.product-recommendations.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "background-1",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.product-recommendations.settings.header__2.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.product-recommendations.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.product-recommendations.settings.image_ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.product-recommendations.settings.show_rating.label",
+      "info": "t:sections.product-recommendations.settings.show_rating.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.product-recommendations.settings.header_mobile.content"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "t:sections.product-recommendations.settings.columns_mobile.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.product-recommendations.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.product-recommendations.settings.columns_mobile.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

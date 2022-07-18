@@ -1,0 +1,95 @@
+{% paginate customer.orders by 20 %}
+  {%- if customer.orders.size > 0 -%}
+    {%- for order in customer.orders -%}
+      <div class="order-history">
+        <span class="label">Order Number</span>
+        <p class="order-number">{{ order.name }}</p>
+        <div class="line-item">
+          {%- for line_item in order.line_items -%}
+            <div class="card__inner">
+              <div class="card__media product_card_media">          
+                {% if line_item.image != blank %}
+                  {%- comment -%}
+                  <img src="{{line_item.image | img_url:'small'}}" />
+                  {%- endcomment -%}
+                  <img srcset="{% if line_item.image.width >= 54 %}{{ line_item.image | image_url: width: 54 }} 54w,{% endif %}
+                    {% if line_item.image.width >= 74 %}{{ line_item.image | image_url: width: 74 }} 74w,{% endif %}
+                    {% if line_item.image.width >= 104 %}{{ line_item.image | image_url: width: 104 }} 104w,{% endif %}
+                    {% if line_item.image.width >= 162 %}{{ line_item.image | image_url: width: 162 }} 162w,{% endif %}
+                    {% if line_item.image.width >= 208 %}{{ line_item.image | image_url: width: 208 }} 208w,{% endif %}
+                    {% if line_item.image.width >= 324 %}{{ line_item.image | image_url: width: 324 }} 324w,{% endif %}
+                    {% if line_item.image.width >= 416 %}{{ line_item.image | image_url: width: 416 }} 416w,{% endif %}
+                    {% if line_item.image.width >= 550 %}{{ line_item.image | image_url: width: 550 }} 550w,{% endif %}
+                    {% if line_item.image.width >= 750 %}{{ line_item.image | image_url: width: 750 }} 750w,{% endif %}
+                    {% if line_item.image.width >= 1100 %}{{ line_item.image | image_url: width: 1100 }} 1100w,{% endif %}
+                    {% if line_item.image.width >= 1500 %}{{ line_item.image | image_url: width: 1500 }} 1500w,{% endif %}
+                    {{ line_item.image | image_url }} {{ line_item.image.width }}w" src="{{ line_item.image | img_url:'origial' }}"
+                    src="{{ line_item.image | image_url: width: 416 }}"
+                    alt="{{line_item.image.alt}}"
+                    loading="lazy"
+                  />
+                {% endif %}            
+              </div>
+              <div class="order-product-details">
+                <p>{{ line_item.title }}</p>
+                <span>{{ line_item.price | money }}</span>
+              </div>
+            </div>
+          {%- endfor -%}      
+          <a href="#" class="track-my-order-btn">
+            <button class="button--primary">Track my order</button>
+          </a>
+        </div>
+      </div>
+    {%- endfor -%}
+  {%- else -%}
+    <div class="no-order">
+      <div class="order-empty">
+        <p>{{ 'customer.orders.none' | t }}</p>
+        <a href="{{routes.all_products_collection_url}}" class="shop_btn"><button class="button--primary">Shop Now</button></a>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if paginate.pages > 1 -%}
+    {%- if paginate.parts.size > 0 -%}
+      <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+        <ul role="list">
+          {%- if paginate.previous -%}
+            <li>
+              <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                </svg>
+              </a>
+            </li>
+          {%- endif -%}
+
+          {%- for part in paginate.parts -%}
+            <li>
+              {%- if part.is_link -%}
+                <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+              {%- else -%}
+                {%- if part.title == paginate.current_page -%}
+                  <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</span>
+                {%- else -%}
+                  <span>{{ part.title }}</span>
+                {%- endif -%}
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+
+          {%- if paginate.next -%}
+            <li>
+              <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}" >
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                </svg>
+              </a>
+            </li>
+          {%- endif -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+  {%- endif -%}
+{% endpaginate %}

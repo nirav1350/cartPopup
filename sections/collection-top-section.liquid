@@ -1,0 +1,162 @@
+{% assign collectionHandleDefault = collection.handle %}
+{% if section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+    {% if block.settings.collection.size > 0 %}
+      {% assign collection = collections[block.settings.collection] %}
+      {% assign collectionHandleBlock = collection.handle %}
+      {% if collectionHandleBlock ==  collectionHandleDefault %}
+        <div class="collection_top">
+          <div class="collection_top_sub">
+            {% if block.settings.heading != blank or block.settings.sub_heading != blank or block.settings.content != blank or block.settings.btn_text != blank %}
+              <div class="coll_section_top">
+                {% if block.settings.heading != blank %}
+                  <h4 class="coll_main_heading">{{block.settings.heading}}</h4>
+                {% endif %}
+                {% if block.settings.sub_heading != blank %}
+                  <h2 class="coll_sub_heading">{{block.settings.sub_heading}}</h2>
+                {% endif %}
+                {% if block.settings.content != blank %}      
+                  <p class="coll_content">{{block.settings.content}}</p>
+                {% endif %}
+                {% if block.settings.btn_text != blank %}     
+                  <a href="{%- if block.settings.btn_url -%}{{block.settings.btn_url}}{%- else -%}#{%- endif -%}" class="button button--primary">{{block.settings.btn_text}}</a>
+                {% endif %}
+              </div>
+            {% endif %}
+            <div class="coll_top_slide_section_main">
+              <ul {% if section.settings.enable_slider %} class="coll_top_img_slider" data-slick='{"dots": {{ section.settings.carousel_dots }}, "arrows": {{ section.settings.carousel_arrows }}}' {% else %} class="coll_top_slide_section" {% endif %}>
+                {% for i in (1..5) %}
+                {%- assign image = 'image_' | append: i  -%}
+                  {% if block.settings[image] != blank %}
+                    <li class="coll_slde_img">
+                      <img class="image_top_slide" srcset="{% if block.settings[image].width >= 54 %}{{ block.settings[image] | image_url: width: 54 }} 54w,{% endif %}
+                        {% if block.settings[image].width >= 74 %}{{ block.settings[image] | image_url: width: 74 }} 74w,{% endif %}
+                        {% if block.settings[image].width >= 104 %}{{ block.settings[image] | image_url: width: 104 }} 104w,{% endif %}
+                        {% if block.settings[image].width >= 162 %}{{ block.settings[image] | image_url: width: 162 }} 162w,{% endif %}
+                        {% if block.settings[image].width >= 208 %}{{ block.settings[image] | image_url: width: 208 }} 208w,{% endif %}
+                        {% if block.settings[image].width >= 324 %}{{ block.settings[image] | image_url: width: 324 }} 324w,{% endif %}
+                        {% if block.settings[image].width >= 416 %}{{ block.settings[image] | image_url: width: 416 }} 416w,{% endif %}
+                        {% if block.settings[image].width >= 550 %}{{ block.settings[image] | image_url: width: 550 }} 550w,{% endif %}
+                        {% if block.settings[image].width >= 750 %}{{ block.settings[image] | image_url: width: 750 }} 750w,{% endif %}
+                        {% if block.settings[image].width >= 1100 %}{{ block.settings[image] | image_url: width: 1100 }} 1100w,{% endif %}
+                        {% if block.settings[image].width >= 1500 %}{{ block.settings[image] | image_url: width: 1500 }} 1500w,{% endif %}
+                        {{ block.settings[image] | image_url }} {{ block.settings[image].width }}w" src="{{ block.settings[image] | img_url:'origial' }}"
+                        src="{{ block.settings[image] | image_url: width: 416 }}"
+                        loading="lazy"
+                      />
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        {% break %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+
+{% schema %}
+{
+  "name": "Collection Top Slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Enable Slider",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_dots",
+      "label": "Enable dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_arrows",
+      "label": "Enable arrows",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Select Slider Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Select Slider Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Select Slider Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Select Slider Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Select Slider Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading",
+          "label": "Enter Heading"
+        },
+        {
+          "type": "text",
+          "id": "sub_heading",
+          "label": "Enter Sub-Heading",
+          "default": "Sub-Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Enter Description",
+          "default": "<p>Content</p>"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Btn Name",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "Btn Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Top Section Slider"
+    }
+  ]
+}
+{% endschema %}

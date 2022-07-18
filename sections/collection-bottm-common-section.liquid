@@ -1,0 +1,94 @@
+{% if section.settings.title != blank or section.blocks.size > 0 %}
+  <div class="collection_bottom">
+    <div class="collection_bottom_sub">
+      {% if section.settings.title != blank %}
+        <div class="coll_section_bottom">
+          <span class="coll_bott_heading h3">{{ section.settings.title }}</span>
+        </div>
+      {% endif %}
+      {% if section.blocks.size > 0 %}
+        <div class="coll_bott_slide_content">
+          <ul {% if section.settings.enable_slider %} class="coll_bottom_img_slider" data-slick='{"dots": {{ section.settings.carousel_dots }}, "arrows": {{ section.settings.carousel_arrows }}}' {% else %} class="coll_bottom_slide_section" {% endif %}>
+            {% for block in section.blocks %}
+              {% if block.settings.image_slide != blank or block.settings.img_title != blank %}
+                <li class="coll_slde_img_bott">
+                  <div class="collection-bottom-slider-item-main">
+                    {% if block.settings.image_slide != blank %}
+                    <img class="image_bott_slide" src="{{ block.settings.image_slide | img_url:'master' }}"
+                      loading="lazy"
+                    />
+                  {% endif %}
+                  {% if block.settings.img_title != blank %}
+                    <span class="coll_bott_img_title">{{ block.settings.img_title }}</span>
+                  {% endif %}
+                  </div>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "Collection Common Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Enter Title",
+      "default": "Gallary"
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Enable Slider",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_dots",
+      "label": "Enable dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_arrows",
+      "label": "Enable arrows",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_slide",
+          "label": "Select Slider Image"
+        },
+        {
+          "type": "text",
+          "id": "img_title",
+          "default": "Image Title",
+          "label": "Enter Image Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Bottom Commom Slider"
+    }
+  ]
+}
+{% endschema %}

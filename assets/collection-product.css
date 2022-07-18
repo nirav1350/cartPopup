@@ -1,0 +1,42 @@
+
+.collection .grid{ column-gap: calc(var(--grid-desktop-horizontal-spacing) + 30px); row-gap: calc(var(--grid-mobile-vertical-spacing) + 80px); margin-bottom: 0;}
+.collection .grid .grid__item{ width: calc(33.33% - 50px * 2 / 3);}
+.collection .card-wrapper:hover a{ text-decoration: none;}
+.collection .card .card__inner{ border: 1px solid rgba(112,112,112,0.5);}
+.collection .card .card__inner.ratio:before{ padding-bottom: 100%;}
+.collection .card .card__inner .card__content.sale-lable{ position: absolute; top: 0; left: 0; width: auto;}
+.collection .card .card__inner .card__media{ background: #fff;}
+.collection .card .card__content{ display: block; flex-grow: initial;grid-template-rows: none;}
+.collection .card .card__content .card__information .card__heading a:after{ display: none;}
+.collection .card .card__content .card__information{ margin: 10px 0 22px;}
+.collection .card .swatch{ padding: 0; margin: 0;}
+.collection .card .swatch .swatch-element{ margin: 0 10px 0px 0;}
+.collection .card .swatch .swatch-element label{ position: relative;}
+.collection .card .swatch .swatch-element label::after{ border: 1px solid var(--custom-primary-color);content: "";position: absolute;left: -3px;top: -3px;width: 28px;height: 28px;border-radius: 50%; opacity: 0; cursor: pointer;}
+.collection .card .swatch .swatch-element .swatchelement.swatch-border + label::after{ opacity: 1;}
+.collection .collection-products-load-more-main{ margin-top: 110px;}
+.collection .collection-products-load-more-main a{ text-decoration: none;}
+
+
+
+
+/* Responsive css start */
+@media (max-width: 991px){
+    .collection .grid{column-gap: calc(var(--grid-desktop-horizontal-spacing) + -9px);row-gap: calc(var(--grid-mobile-vertical-spacing) + 35px);}
+    .collection .grid .grid__item {width: calc(50% - 50px * 2 / 3);}
+    .collection .card{padding-bottom: 39px;}
+    .collection .card .card__content .card__information{ margin: 15px 0 11px;flex-direction: column;justify-content: flex-start;align-items: flex-start;}
+    .collection .card__heading{ width: 100%;}
+    .collection .card__content .card-information{ width: 100%; text-align: left;position: absolute;left: 0;bottom: 0;}    
+    .collection .swatch .swatch-element{ margin: 0 10px 0px 0;}
+    .collection .swatch .swatch-element .swatchelement{ width: 18px; height: 18px;}
+    .collection .card .swatch .swatch-element label:after{width: 24px;  height: 24px;}
+    .collection .swatch .swatch-element label{min-width: 18px!important;height: 18px!important;}
+    .collection .card .swatch .swatch-element label:before{width: 18px;height: 18px;}
+
+    .collection .collection-products-load-more-main {
+        margin-top: 50px;
+    }
+    .collection_bottom{ margin-top: 25px;}
+}
+

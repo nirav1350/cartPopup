@@ -1,0 +1,86 @@
+{% comment %}
+    Renders cart notification
+
+    Accepts:
+    - color_scheme: {String} sets the color scheme of the notification (optional)
+
+    Usage:
+    {% render 'cart-notification' %}
+{% endcomment %}
+
+<cart-notification>
+  <div class="cart-notification-wrapper page-width">
+    <div id="cart-notification" class="cart-notification focus-inset{% if color_scheme %} color-{{ color_scheme }} gradient{% endif %}" aria-modal="true" aria-label="{{ 'general.cart.item_added' | t }}" role="dialog" tabindex="-1">
+      <div class="item_cart_part_1">
+        <div class="cart-notification__header">
+          <h2 class="cart-notification__heading caption-large text-body">{%- render 'icon-checkmark' -%} <span class="cart__count_product"></span> {{ 'general.cart.item_added' | t }}</h2>
+          <button type="button" class="cart-notification__close modal__close-button link link--text focus-inset" aria-label="{{ 'accessibility.close' | t }}">
+            <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="#icon-close"></svg>
+          </button>
+        </div>
+        <div id="cart-notification-product" class="cart-notification-product"></div>
+      </div>
+
+      <div class="item_cart_part_2">
+        <h2 class="cart-notification__heading caption-large text-body">Your cart</h2>
+        <div class="cart-notification__links">
+          <div class="product-option">
+            <dt>subtotal</dt>
+            <dt class="cart__subtotal"></dt>
+          </div>
+          <a href="{{ routes.cart_url }}" id="cart-notification-button" class="button button--secondary button--full-width" style="display:none"></a>
+          <button type="button" class="link button-label">{{ 'general.continue_shopping' | t }}</button>
+          <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
+            <button class="button button--primary button--full-width" name="checkout">Checkout Now</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="collection_bottom">
+        <div class="collection_bottom_sub">
+          <div class="cart_popup_section_bottom">
+            <span class="cart_popup_bott_heading h3">{{ section.settings.title }}</span>
+          </div>
+          <div class="cart_popup_bott_slide_content">
+            <ul id="cart_popup_common_slider" class="grid product-grid contains-card cart_popup_bottom_img_slider">
+              {%- if settings.cart_popup_collection -%}
+                {%- for product in settings.cart_popup_collection.products -%}
+                  <li class="grid__item">
+                    {% if product.featured_image != blank %}
+                      <img src="{{product.featured_image | img_url: 'small'}}" />
+                    {% endif %}
+                    <!-- <img
+                      srcset="{%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+                        {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
+                        {%- if product.featured_image.width >= 533 -%}{{ product.featured_image | image_url: width: 533 }} 533w,{%- endif -%}
+                        {%- if product.featured_image.width >= 720 -%}{{ product.featured_image | image_url: width: 720 }} 720w,{%- endif -%}
+                        {%- if product.featured_image.width >= 940 -%}{{ product.featured_image | image_url: width: 940 }} 940w,{%- endif -%}
+                        {%- if product.featured_image.width >= 1066 -%}{{ product.featured_image | image_url: width: 1066 }} 1066w,{%- endif -%}
+                        {{ product.featured_image | image_url }} {{ product.featured_image.width }}w"
+                      src="{{ product.featured_image | image_url: width: 533 }}"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      loading="lazy"
+                      width="{{ product.featured_image.width }}"
+                      height="{{ product.featured_image.height }}"
+                    > -->
+                    <a href="{{product.url}}"><p>{{product.title}}</p></a>
+                  </li>
+                {%- endfor -%}
+              {%- endif -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</cart-notification>
+{% style %}
+  .cart-notification {
+    display: none;
+  }
+
+  #cart-notification{
+    z-index:999;
+  }
+{% endstyle %}

@@ -1,0 +1,60 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<style>
+  h2, h1 {
+    font-size: inherit;
+  }
+</style>
+
+<div class="acc_success__login">
+  <h3 class="customer_success_login"><svg xmlns="http://www.w3.org/2000/svg" width="31.822" height="24.184" viewBox="0 0 31.822 24.184">
+    <path id="icons8-check" d="M11.01,28.812a1.273,1.273,0,0,0,1.8,0L34.449,7.173a1.273,1.273,0,1,0-1.8-1.8L11.91,26.112,5.173,19.375a1.273,1.273,0,1,0-1.8,1.8Z" transform="translate(-3 -5)" fill="#52848d"/>
+  </svg> You've successfully logged in.</h3>
+</div>
+<div class="customer account account_order_page">
+  <div class="customer-title account__head_title">
+    <h3 class="customer_name">hello {{customer.first_name}}</h3>
+    <span></span>
+  </div>
+
+  <div class="account_details">
+    <div class="account-order">
+      <a href="javascript:void(0)" class="order_history_show_btn">
+        <h2 class="h32 account-order-title">{{ 'customer.orders.title' | t }}</h2>
+      </a>
+      <p class="account-desc">Get updates on your current orders and look back over previous ones.</p>
+    </div>
+    <div class="account-order account-address">
+      <a href="{{ routes.account_addresses_url }}">
+        <h2 class="h32 account-order-title">Address book</h2>
+      </a>
+    </div>
+    <a href="{{ routes.account_logout_url }}" class="logout_btn" onclick="localStorageRemoveItem()">
+      <button class="button--primary">Log out</button>
+    </a>
+  </div>
+</div>
+
+{%- comment -%}Order History{%- endcomment -%}
+
+<div class="customer account order_history_show" style="display: none;">
+  <div class="order_history">
+    <h3 class="customer_name account__head_title">order history</h3>
+    <span></span>
+    {% render 'order-history' %}
+  </div>
+</div>
+
+<script>
+  var alreadyLogin = localStorage.getItem("successLogin");
+  if(alreadyLogin == 'AlreadyLogin'){
+    document.querySelectorAll('.acc_success__login')[0].style.display = 'none';
+  }
+  setTimeout(function() {
+    localStorage.setItem('successLogin', 'AlreadyLogin');
+    document.querySelectorAll('.acc_success__login')[0].style.display = 'none';
+  }, 4000);
+  //Remove 'successLogin' Item from localStorage
+  function localStorageRemoveItem(){
+    localStorage.removeItem("successLogin");
+  }
+</script>
